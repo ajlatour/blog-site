@@ -61,3 +61,16 @@ Check out [our documentation](https://docs.astro.build) or jump into our [Discor
 ## Credit
 
 This theme is based off of the lovely [Bear Blog](https://github.com/HermanMartinus/bearblog/).
+
+## Tests
+
+```
+npm test                    # responsive tests + internal link check
+npm run test:e2e            # Playwright: every built page at mobile, tablet and desktop widths
+npm run test:links          # fail on broken links within the site
+npm run test:links:external # also check links to other sites (weekly in CI, not on PRs)
+```
+
+`test:links` and `test:links:external` crawl `dist/`, so run `npm run build` first. The external check
+skips `example.com` (the placeholder `site` in `astro.config.mjs`); remove that skip in
+`scripts/check-links.mjs` once the real domain is set.
