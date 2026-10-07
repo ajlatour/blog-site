@@ -28,8 +28,12 @@ jobs:
         run: npm run test:e2e
       - name: Internal link check
         run: npm run test:links
+      - name: Lighthouse (performance, accessibility, best practices, SEO)
+        run: npm run test:lighthouse
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: playwright-report
-          path: playwright-report/
+          name: reports
+          path: |
+            playwright-report/
+            lhci-report/
