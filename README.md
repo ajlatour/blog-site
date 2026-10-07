@@ -62,11 +62,23 @@ Check out [our documentation](https://docs.astro.build) or jump into our [Discor
 
 This theme is based off of the lovely [Bear Blog](https://github.com/HermanMartinus/bearblog/).
 
+## Checks
+
+```
+npm run check         # astro check: types and content frontmatter
+npm run lint          # ESLint
+npm run format        # Prettier (use format:check to verify only)
+npm run audit:prod    # npm audit, production dependencies, high severity and up
+```
+
+CI runs all of these plus the tests below on every PR. Dependabot opens weekly update PRs.
+
 ## Tests
 
 ```
 npm test                    # responsive tests + internal link check
-npm run test:e2e            # Playwright: every built page at mobile, tablet and desktop widths
+npm run test:e2e            # Playwright: every built page at mobile, tablet and desktop widths, plus axe accessibility
+                            # (fails on serious or critical violations)
 npm run test:links          # fail on broken links within the site
 npm run test:links:external # also check links to other sites (weekly in CI, not on PRs)
 ```

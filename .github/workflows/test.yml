@@ -15,8 +15,16 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      - name: Type check (Astro + content frontmatter)
+        run: npm run check
+      - name: Lint
+        run: npm run lint
+      - name: Formatting
+        run: npm run format:check
+      - name: Dependency audit (production, high+)
+        run: npm run audit:prod
       - run: npx playwright install --with-deps chromium
-      - name: Responsive tests (builds the site)
+      - name: Responsive and accessibility tests (builds the site)
         run: npm run test:e2e
       - name: Internal link check
         run: npm run test:links
