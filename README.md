@@ -89,3 +89,11 @@ npm run test:links:external # also check links to other sites (weekly in CI, not
 `test:links` and `test:links:external` crawl `dist/`, so run `npm run build` first. The external check
 skips `example.com` (the placeholder `site` in `astro.config.mjs`); remove that skip in
 `scripts/check-links.mjs` once the real domain is set.
+
+## Deploying (Cloudflare Pages)
+
+Hosted through Cloudflare's GitHub integration: production deploys from `main`, and every PR gets a preview URL.
+
+- Build command: `npm run build`
+- Build output directory: `dist`
+- Node version: read from `.node-version`
