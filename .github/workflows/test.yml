@@ -28,6 +28,8 @@ jobs:
         run: npm run test:e2e
       - name: Internal link check
         run: npm run test:links
+      - name: Worker config (dry-run deploy)
+        run: npm run deploy:dry-run
       - name: Lighthouse (performance, accessibility, best practices, SEO)
         run: npm run test:lighthouse
       - uses: actions/upload-artifact@v4

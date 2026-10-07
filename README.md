@@ -92,10 +92,19 @@ also follows links to the live site, so a page not yet deployed will show up as 
 `npm run test:smoke` requests every page in the live sitemap plus the RSS feed and expects 200. In CI
 it runs after each push to `main` (retrying while Cloudflare deploys) and once a day.
 
-## Deploying (Cloudflare Pages)
+## Deploying (Cloudflare Workers)
 
-Live at https://blog-site.ajlatour.workers.dev, hosted through Cloudflare's GitHub integration: production deploys from `main`, and every PR gets a preview URL.
+Live at https://blog-site.ajlatour.workers.dev. The site is a Worker serving static assets from `dist/`
+(see `wrangler.jsonc`), built and deployed by Cloudflare's GitHub integration (Workers Builds):
+production from `main`, a preview version for every other branch.
+
+Settings in the Cloudflare dashboard (Worker, Settings, Builds):
 
 - Build command: `npm run build`
-- Build output directory: `dist`
+- Deploy command: `npx wrangler deploy`
+- Non-production branch deploy command: `npx wrangler versions upload`
+- Production branch: `main`; root directory: blank
 - Node version: read from `.node-version`
+
+`npm run deploy:dry-run` validates the Worker config without deploying, and `npx wrangler dev` serves
+the built site locally the way Cloudflare will.

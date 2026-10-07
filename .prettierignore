@@ -10,3 +10,5 @@ tsconfig.json
 src/content/
 lhci-report/
 .lighthouseci/
+.wrangler/
+wrangler.jsonc
