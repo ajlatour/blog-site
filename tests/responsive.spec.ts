@@ -25,7 +25,9 @@ for (const viewport of viewports) {
 				expect(overflow, 'page scrolls horizontally').toBeLessThanOrEqual(0);
 
 				const brokenImages = await page.evaluate(() =>
-					[...document.images].filter((img) => img.complete && img.naturalWidth === 0).map((img) => img.src),
+					[...document.images]
+						.filter((img) => img.complete && img.naturalWidth === 0)
+						.map((img) => img.src),
 				);
 				expect(brokenImages, 'images failed to load').toEqual([]);
 			});
