@@ -87,12 +87,14 @@ npm run test:links:external # also check links to other sites (weekly in CI, not
 ```
 
 `test:links` and `test:links:external` crawl `dist/`, so run `npm run build` first. The external check
-skips `example.com` (the placeholder `site` in `astro.config.mjs`); remove that skip in
-`scripts/check-links.mjs` once the real domain is set.
+also follows links to the live site, so a page not yet deployed will show up as broken there.
+
+`npm run test:smoke` requests every page in the live sitemap plus the RSS feed and expects 200. In CI
+it runs after each push to `main` (retrying while Cloudflare deploys) and once a day.
 
 ## Deploying (Cloudflare Pages)
 
-Hosted through Cloudflare's GitHub integration: production deploys from `main`, and every PR gets a preview URL.
+Live at https://blog-site.ajlatour.workers.dev, hosted through Cloudflare's GitHub integration: production deploys from `main`, and every PR gets a preview URL.
 
 - Build command: `npm run build`
 - Build output directory: `dist`

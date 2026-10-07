@@ -19,10 +19,7 @@ const result = await checker.check({
 	path: 'dist',
 	recurse: true,
 	// The local server picks a port, so only skip anything that is not that server.
-	// External mode skips the placeholder `site` from astro.config.mjs (canonical, RSS and
-	// sitemap URLs): it is not deployed yet. Remove this once the real domain is live.
-	linksToSkip:
-		mode === 'internal' ? ['^https?://(?!localhost|127\\.0\\.0\\.1)'] : ['^https?://example\\.com'],
+	linksToSkip: mode === 'internal' ? ['^https?://(?!localhost|127\\.0\\.0\\.1)'] : [],
 	timeout: 15_000,
 	retry: true,
 	retryErrors: true,

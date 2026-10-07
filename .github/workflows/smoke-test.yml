@@ -1,0 +1,20 @@
+name: Smoke test
+
+# Cloudflare deploys from main on its own, so this polls the live site until it responds
+# (up to ~5 minutes) after each push, and once a day to catch outages.
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '41 5 * * *'
+  workflow_dispatch:
+
+jobs:
+  smoke-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node scripts/smoke-test.mjs
