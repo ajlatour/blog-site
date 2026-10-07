@@ -19,7 +19,9 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "audit:prod": "npm audit --omit=dev --audit-level=high",
-    "test:lighthouse": "lhci autorun"
+    "test:lighthouse": "lhci autorun",
+    "test:smoke": "node scripts/smoke-test.mjs",
+    "deploy:dry-run": "wrangler deploy --dry-run"
   },
   "dependencies": {
     "@astrojs/mdx": "^8.0.3",
@@ -43,6 +45,7 @@
     "prettier": "^3.9.9",
     "prettier-plugin-astro": "^1.1.0",
     "typescript": "^6.0.3",
-    "typescript-eslint": "^8.71.1"
+    "typescript-eslint": "^8.71.1",
+    "wrangler": "^4.148.0"
   }
 }
