@@ -77,8 +77,11 @@ CI runs all of these plus the tests below on every PR. Dependabot opens weekly u
 
 ```
 npm test                    # responsive tests + internal link check
-npm run test:e2e            # Playwright: every built page at mobile, tablet and desktop widths, plus axe accessibility
-                            # (fails on serious or critical violations)
+npm run test:e2e            # Playwright, on every built page:
+                            #   responsive at mobile, tablet and desktop widths
+                            #   axe accessibility (fails on serious or critical violations)
+                            #   SEO metadata (title, description, canonical, Open Graph, sitemap, RSS)
+npm run test:lighthouse     # Lighthouse CI: performance 0.9, accessibility 0.95, best practices 0.9, SEO 0.9
 npm run test:links          # fail on broken links within the site
 npm run test:links:external # also check links to other sites (weekly in CI, not on PRs)
 ```
