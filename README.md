@@ -73,6 +73,22 @@ npm run audit:prod    # npm audit, production dependencies, high severity and up
 
 CI runs all of these plus the tests below on every PR. Dependabot opens weekly update PRs.
 
+## Git hook
+
+`npm install` sets up a Husky pre-commit hook. When a commit touches `src/`, `public/`, `astro.config.mjs` or
+`.htmlvalidate.json`, it builds the site and runs `html-validate` on `dist/` (`npm run validate:html`).
+Skipping it with `--no-verify` is possible; the hook is a convenience, not a gate. Two rules are off in
+`.htmlvalidate.json`: `no-inline-style` (the syntax highlighter emits inline styles) and `void-style`.
+
+## Security
+
+- `public/_headers` sets CSP, HSTS, `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy` and
+  `Permissions-Policy`, and long-lived caching for `/_astro/*`. The smoke test checks they are present on the live site.
+- CodeQL (JavaScript/TypeScript and workflows) and gitleaks run on PRs and `main`; GitHub secret scanning and push
+  protection are enabled for the repo.
+- Post frontmatter is validated in `src/content.config.ts`: non-empty title and description (max 160 characters),
+  and `updatedDate` not before `pubDate`.
+
 ## Tests
 
 ```
