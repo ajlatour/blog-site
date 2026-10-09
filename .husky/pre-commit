@@ -1,0 +1,4 @@
+# Validate the built HTML, but only when something that affects it is being committed.
+if git diff --cached --name-only | grep -qE '^(src/|public/|astro\.config\.mjs$|\.htmlvalidate\.json$)'; then
+	npm run validate:html
+fi

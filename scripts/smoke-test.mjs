@@ -7,6 +7,23 @@ const delayMs = 30_000;
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
+// Headers from public/_headers; a missing one means the file was not deployed or not applied.
+const requiredHeaders = [
+	'content-security-policy',
+	'strict-transport-security',
+	'x-content-type-options',
+	'x-frame-options',
+	'referrer-policy',
+	'permissions-policy',
+];
+
+async function checkHeaders() {
+	const response = await fetch(`${base}/`);
+	return requiredHeaders
+		.filter((name) => !response.headers.has(name))
+		.map((name) => `missing header ${name} on ${base}/`);
+}
+
 async function check() {
 	const failures = [];
 	const sitemap = await fetch(`${base}/sitemap-0.xml`);
@@ -21,6 +38,7 @@ async function check() {
 		const response = await fetch(`${base}${path}`);
 		if (response.status !== 200) failures.push(`${response.status} ${base}${path}`);
 	}
+	failures.push(...(await checkHeaders()));
 	console.log(`Checked ${paths.length} URLs on ${base}`);
 	return failures;
 }
